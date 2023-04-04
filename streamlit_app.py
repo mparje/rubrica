@@ -7,18 +7,16 @@ from reportlab.lib.styles import getSampleStyleSheet
 def crear_pdf_rubrica(pesos, criterios):
     archivo_pdf = "rubrica.pdf"
     doc = SimpleDocTemplate(archivo_pdf, pagesize=landscape(letter))
-
     styles = getSampleStyleSheet()
     style = styles["BodyText"]
     style.wordWrap = "CJK"
-
     data = [["Criterio", "Peso", "Descripción", "Punteo"]]
+
     for criterio, peso in pesos.items():
         descripcion = Paragraph(criterios[criterio], style)
         data.append([criterio, f"{peso}%", descripcion, ""])
 
     table = Table(data)
-
     table.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), colors.grey),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
@@ -32,7 +30,6 @@ def crear_pdf_rubrica(pesos, criterios):
     ]))
 
     doc.build([table])
-
     return archivo_pdf
 
 # Título de la aplicación
@@ -47,8 +44,13 @@ criterios = {
     "Organización": "¿El trabajo está organizado y bien estructurado? ¿Hay una introducción, desarrollo y conclusión clara?",
     "Presentación": "¿El trabajo está presentado de manera profesional y limpia? ¿Se ha utilizado una presentación adecuada para el proyecto, como imágenes, gráficos y diseños?",
     "Coherencia": "¿Hay una conexión clara entre las diferentes partes del trabajo? ¿El trabajo tiene un flujo lógico y coherente?",
-    "Habilidad técnica": "¿El estudiante ha utilizado habilidades técnicas apropiadas para el proyecto, como gramática, ortografía y puntuación adecuadas?",
-    
+    "Habilidad técnica": "¿El estudiante ha utilizado habilidades técnicas apropiadas para el proyecto, como gramática, ortografía y puntuación adecuadas?"
+}
+
+pesos = {}
+for criterio in criterios.keys():
+    pesos[criterio] = st.sidebar.slider(f"Peso de {criterio}", 0, 100, 0)
+
 if st.button("Descargar rúbrica en PDF"):
     total = sum(pesos.values())
     if total != 100:
