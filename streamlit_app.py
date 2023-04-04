@@ -48,14 +48,12 @@ criterios = {
     "Presentación": "¿El trabajo está presentado de manera profesional y limpia? ¿Se ha utilizado una presentación adecuada para el proyecto, como imágenes, gráficos y diseños?",
     "Coherencia": "¿Hay una conexión clara entre las diferentes partes del trabajo? ¿El trabajo tiene un flujo lógico y coherente?",
     "Habilidad técnica": "¿El estudiante ha utilizado habilidades técnicas apropiadas para el proyecto, como gramática, ortografía y puntuación adecuadas?",
-
-Descargar la rúbrica en PDF
 if st.button("Descargar rúbrica en PDF"):
-total = sum(pesos.values())
-if total != 100:
-st.error("La suma de los pesos debe ser igual al 100%.")
-else:
-archivo_pdf = crear_pdf_rubrica(pesos, criterios)
-with open(archivo_pdf, "rb") as f:
-pdf_data = f.read()
-st.download_button("Descargar rúbrica", pdf_data, "rubrica.pdf", "application/pdf")
+    total = sum(pesos.values())
+    if total != 100:
+        st.error("La suma de los pesos debe ser igual al 100%.")
+    else:
+        archivo_pdf = crear_pdf_rubrica(pesos, criterios)
+        with open(archivo_pdf, "rb") as f:
+            pdf_data = f.read()
+        st.download_button("Descargar rúbrica", pdf_data, "rubrica.pdf", "application/pdf")
