@@ -49,7 +49,7 @@ criterios = {
     "Coherencia": "¿Hay una conexión clara entre las diferentes partes del trabajo? ¿El trabajo tiene un flujo lógico y coherente?",
     "Habilidad técnica": "¿El estudiante ha utilizado habilidades técnicas apropiadas para el proyecto, como gramática, ortografía y puntuación adecuadas?",
     
-    if st.button("Descargar rúbrica en PDF"):
+if st.button("Descargar rúbrica en PDF"):
     total = sum(pesos.values())
     if total != 100:
         st.error("La suma de los pesos debe ser igual al 100%.")
