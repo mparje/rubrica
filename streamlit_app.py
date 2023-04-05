@@ -51,12 +51,19 @@ pesos = {}
 for criterio in criterios.keys():
     pesos[criterio] = st.sidebar.slider(f"Peso de {criterio}", 0, 100, 0)
 
-if st.button("Descargar rúbrica en PDF"):
-    total = sum(pesos.values())
-    if total != 100:
-        st.error("La suma de los pesos debe ser igual al 100%.")
-    else:
-        archivo_pdf = crear_pdf_rubrica(pesos, criterios)
-        with open(archivo_pdf, "rb") as f:
-            pdf_data = f.read()
-        st.download_button("Descargar rúbrica", pdf_data, "rubrica.pdf", "application/pdf")
+# Mostrar descripción de los criterios en el cuerpo de la página
+st.header("Descripción de los criterios:")
+for criterio, descripcion in criterios.items():
+st.subheader(criterio)
+st.write(descripcion)
+
+if st.button(“Descargar rúbrica en PDF”):
+total = sum(pesos.values())
+if total != 100:
+st.error(“La suma de los pesos debe ser igual al 100%.”)
+else:
+archivo_pdf = crear_pdf_rubrica(pesos, criterios)
+with open(archivo_pdf, “rb”) as f:
+pdf_data = f.read()
+st.download_button(“Descargar rúbrica”, pdf_data, “rubrica.pdf”, “application/pdf”)
+
